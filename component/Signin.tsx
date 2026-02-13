@@ -22,9 +22,9 @@ export function Signin() {
 
     const onSubmit = async (data: FormValues) => {
         try {
-            const res = await axios.post(`${BACKEND_URL}/api/v1/login`, data)
+            const res = await axios.post(`${BACKEND_URL}/api/v1/login`, data,{withCredentials: true,})
 
-            console.log(res.data)
+            localStorage.setItem("token", res.data.token)
             router.push("/")
         } catch (err: any) {
             setError("root", {
