@@ -19,20 +19,20 @@ type FormValues = {
 };
 
 export default function TodoForm() {
-    const { register, handleSubmit,setError, formState: { errors, isSubmitting },} = useForm<FormValues>();
+    const { register, handleSubmit, setError, formState: { errors, isSubmitting }, } = useForm<FormValues>();
     const [todos, setTodos] = useState<Todo[]>([]);
 
 
     const fetchTodos = async () => {
         try {
-             const res = await axios.get(`${BACKEND_URL}/api/v1/`, { withCredentials: true });
-             setTodos(res.data);
+            const res = await axios.get(`${BACKEND_URL}/api/v1/`, { withCredentials: true });
+            setTodos(res.data);
         } catch (error: any) {
-           setError("root", {
-            message: error?.response?.data?.message || "Failed to fetch todos",
-           })
+            setError("root", {
+                message: error?.response?.data?.message || "Failed to fetch todos",
+            })
         }
-       
+
     };
 
     useEffect(() => {
@@ -46,37 +46,37 @@ export default function TodoForm() {
             await axios.post(`${BACKEND_URL}/api/v1/`, data, { withCredentials: true });
             fetchTodos();
         } catch (err: any) {
-           setError("root", {
-            message: err?.response?.data?.message || "Failed to add todo",
-           })
+            setError("root", {
+                message: err?.response?.data?.message || "Failed to add todo",
+            })
         }
     };
 
     const deleteTodo = async (id: string) => {
         try {
             await axios.delete(`${BACKEND_URL}/api/v1/${id}`, { withCredentials: true });
-        fetchTodos();
+            fetchTodos();
         } catch (error: any) {
             setError("root", {
-            message: error?.response?.data?.message || "Failed to delete todo",
-           })
+                message: error?.response?.data?.message || "Failed to delete todo",
+            })
         }
-        
+
     };
     const toggleTodo = async (todo: Todo) => {
         try {
             await axios.put(
-            `${BACKEND_URL}/api/v1/${todo._id}`,
-            { completed: !todo.completed },
-            { withCredentials: true }
-        );
-        fetchTodos();
+                `${BACKEND_URL}/api/v1/${todo._id}`,
+                { completed: !todo.completed },
+                { withCredentials: true }
+            );
+            fetchTodos();
         } catch (error: any) {
             setError("root", {
-            message: error?.response?.data?.message || "Failed to toggle todo",
-           })
+                message: error?.response?.data?.message || "Failed to toggle todo",
+            })
         }
-        
+
     };
 
     return (
@@ -100,7 +100,7 @@ export default function TodoForm() {
                     disabled={isSubmitting}
                     className="bg-black text-white px-4 rounded"
                 >
-                    {isSubmitting? <Loader className="animate-spin" /> : "Add"}
+                    {isSubmitting ? <Loader className="animate-spin" /> : "Add"}
                 </button>
             </form>
 
