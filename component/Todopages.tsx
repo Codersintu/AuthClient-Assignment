@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "@/config/data";
 import { Loader } from "lucide-react";
-import { error } from "console";
 
 
 type Todo = {
@@ -63,6 +62,7 @@ export default function TodoForm() {
         }
 
     };
+
     const toggleTodo = async (todo: Todo) => {
         try {
             await axios.put(
@@ -81,7 +81,6 @@ export default function TodoForm() {
 
     return (
         <div className="max-w-md mx-auto mt-10 space-y-4">
-            {/* FORM */}
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex gap-2"
@@ -104,7 +103,7 @@ export default function TodoForm() {
                 </button>
             </form>
 
-            {/* LIST */}
+
             <div className="space-y-2">
                 {todos.map((todo) => (
                     <div
